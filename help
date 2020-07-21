@@ -1,0 +1,31 @@
+https://fastapi.tiangolo.com/tutorial/
+
+ #Build the Docker image
+ docker build -t using-fastapi .
+
+ # Start the Docker container
+docker run -d --name using-fastapi-c -p 80:80 using-fastapi
+docker run -d -p 80:80 -v $(pwd)/app:/app using-fastapi /start-reload.sh
+
+docker exec -u root -it using-fastapi_using-fast-api_1  bash
+
+
+
+
+Run the development server (like uvicorn main:app --reload).
+
+
+
+Notes:
+** All the data validation is performed under the hood by Pydantic
+**
+With FastAPI, by using short, intuitive and standard Python type declarations, you get:
+
+Editor support: error checks, autocompletion, etc.
+Data "parsing"
+Data validation
+API annotation and automatic documentation
+And you only have to declare them once.
+
+That's probably the main visible advantage of FastAPI compared to alternative frameworks
+

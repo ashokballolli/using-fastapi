@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+    using-fast-api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: always
+        volumes:
+            - ./app:/app
+        ports:
+            - "8000:8000"
+        command: uvicorn main:item_app --reload
+#        healthcheck:
+#            test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+#            interval: 30s
+#            timeout: 30s
+#            retries: 3
