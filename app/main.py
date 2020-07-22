@@ -89,6 +89,37 @@ async def read_item(item_id: str, q: Optional[str] = None, short: bool = False):
         )
     return item
 
+# Request body + path + query parameters
+
+class Employee(BaseModel):
+    name: str
+    dept: str
+    exp: int
+    age: Optional[int] = None
+    place: Optional[str] = "global"
+from enum import Enum
+class EmpLevels(str, Enum):
+    asso = "Associate"
+    midsen = "Mid-Senior"
+    sen = "Senior"
+
+@app.post("/emp/create/{empId}/")
+def create_employee(empId: int, employee: Employee, q = None):
+    emp_dict = employee.dict()
+    if employee.exp < 3:
+        emp_dict.update({"level": EmpLevels.asso})
+    elif employee.exp < 6:
+        emp_dict.update({"level": EmpLevels.midsen})
+    else:
+        emp_dict.update({"level": EmpLevels.sen})
+    if q:
+        emp_dict.update({"q": q})
+        
+    emp_dict.update({"empId": empId})
+    return emp_dict
+
+
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="127.0.0.1", port=8000, log_level="debug", reload=True)
